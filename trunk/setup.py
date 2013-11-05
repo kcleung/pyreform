@@ -21,8 +21,8 @@ longdesc = '''
 This is a set of programs for reformulating PDDL files ready for input into automated planners.
 '''
 
-import ez_setup
-ez_setup.use_setuptools()
+#import ez_setup
+#ez_setup.use_setuptools()
 
 import sys
 try:
