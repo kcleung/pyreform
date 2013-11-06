@@ -35,7 +35,7 @@ sys.setrecursionlimit(10000000)
 
 
 
-def reform(domain_file, problem_file):
+def run(domain_file, problem_file, local_config=None):
     '''
     This is the entry point for the PDDL Reform application
     It expects two input files in PDDL format and generates a set of files in response including:
@@ -43,6 +43,11 @@ def reform(domain_file, problem_file):
      - reformulated input files
      - a regenerated sas plan file
     '''    
+
+    if not local_config is None:
+        names = dir(local_config)
+        if not 'APP_ROOT' in names and not 'FASTDOWNWARD_ROOT' in names:
+            local_config = None
 
     # Read in the domain and problem input files
     domain, prob = core.read_input(domain_file, problem_file)
@@ -94,7 +99,7 @@ def reform(domain_file, problem_file):
     timer = timeit("timing.txt", "elapsed")
     timer.start(domain_file, problem_file)
     timer.capture()
-    plan = planner.execute()
+    plan = planner.execute(local_config=local_config)
     timer.capture()
     
     #_PRINT("plan",plan)
@@ -120,6 +125,6 @@ def reform(domain_file, problem_file):
 
 if __name__ == '__main__':
 
-    result = reform(sys.argv[1], sys.argv[2])
+    result = run(sys.argv[1], sys.argv[2])
     
 
