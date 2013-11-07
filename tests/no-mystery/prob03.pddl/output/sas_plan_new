@@ -1,0 +1,4 @@
+(drive motorroller denzlingen schopfheim fuel-1 fuel-2)
+(load eisbein motorroller schopfheim capacity-1 capacity-2)
+(drive motorroller schopfheim breisach fuel-0 fuel-1)
+(unload eisbein motorroller breisach capacity-1 capacity-2)
