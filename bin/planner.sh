@@ -3,7 +3,7 @@
 
 # Use default locations unless passed in by argument
 PYREFORM_HOME="/opt/pddl"
-PLANNER_HOME="/opt/fastdownward"
+PLANNER_HOME="/opt/planner"
 
 if [ $# > 0 ]
 then

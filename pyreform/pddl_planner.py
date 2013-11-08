@@ -22,7 +22,7 @@ def execute(local_config=None):
     if not local_config is None:
         config = local_config
         
-    os.system("bash %s/bin/planner.sh %s %s" % (config.APP_ROOT, config.APP_ROOT, config.FASTDOWNWARD_ROOT))
+    os.system("bash %s/bin/planner.sh %s %s" % (config.APP_HOME, config.APP_HOME, config.PLANNER_HOME))
     myfileplan = open("downwardtmp-0/sas_plan")                
     plan = myfileplan.read()
     myfileplan.close()
@@ -64,7 +64,7 @@ def runvalidation(new_plan, local_config=None):                                 
     solution_file.write(solutionstring[1:-1])
     solution_file.close()
     test_file = open("tester","w")
-    subprocess.call(["%s/src/validate newdomain.pddl newprob.pddl sas_plan" % config.FASTDOWNWARD_ROOT], shell=True, stdout=test_file)
+    subprocess.call(["%s/src/validate newdomain.pddl newprob.pddl sas_plan" % config.PLANNER_HOME], shell=True, stdout=test_file)
     _DEBUG("subprocess",subprocess) 
 #!    omp_cmd = '/Users/prid013/Documents/Fast-Downward-8ea549f76262/src/validate /Users/prid013/Documents/IPCdomains/benchmarks3/gripper/domain.pddl /Users/prid013/Documents/IPCdomains/benchmarks3/gripper/prob01.pddl /Users/prid013/Documents/IPCdomains/sas_plan_new' 
 #!with open(test_file) as stdout:

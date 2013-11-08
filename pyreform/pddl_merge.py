@@ -46,7 +46,7 @@ def run(domain_file, problem_file, local_config=None):
 
     if not local_config is None:
         names = dir(local_config)
-        if not 'APP_ROOT' in names and not 'FASTDOWNWARD_ROOT' in names:
+        if not 'APP_HOME' in names and not 'PLANNER_HOME' in names:
             local_config = None
 
     # Read in the domain and problem input files

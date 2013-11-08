@@ -1,2 +1,2 @@
-APP_ROOT = '/opt/pddl'
-FASTDOWNWARD_ROOT = '/opt/fastdownward'
+APP_HOME = '/opt/pddl'
+PLANNER_HOME = '/opt/planner'
