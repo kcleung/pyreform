@@ -83,6 +83,7 @@ else
 	easy_install "$PYREFORM_REPOSITORY#egg=pyreform"
 fi
 
+echo
 echo "Installing the PyReform scripts..."
 echo
 
