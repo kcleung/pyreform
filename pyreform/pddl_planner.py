@@ -46,7 +46,7 @@ def execute(local_config=None):
     myfileplan.close()
     return plan
 
-def giveup(domain,prob, domain_file, problem_file):
+def giveup(domain,prob, domain_file, problem_file, local_config=None):
     _DEBUG("OH NO")
     new_file_name = "newdomain.pddl"
     text_file = open(new_file_name, "w")                                                                #!write prob string into a file
@@ -59,7 +59,7 @@ def giveup(domain,prob, domain_file, problem_file):
     timer = timeit("timing.txt", "elapsed")
     timer.start(domain_file, problem_file)
     timer.capture()
-    plan = execute()
+    plan = execute(local_config=local_config)
     timer.capture()
     solution_file = open("sas_plan_new", "w")
     solution_file.write(plan)

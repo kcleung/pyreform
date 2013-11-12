@@ -101,7 +101,7 @@ def run(domain_file, problem_file, local_config=None):
     # If we can't reformulate then simply output what was input and exit
     if myset == []:
         #_PRINT("reformulate",REFORMULATE,"myset",myset) #"mylist",mylist
-        planner.giveup(domain,prob, domain_file, problem_file)
+        planner.giveup(domain,prob, domain_file, problem_file, local_config=local_config)
         sys.exit()
     
     _DEBUG("reformulate", REFORMULATE)
