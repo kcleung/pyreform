@@ -91,6 +91,15 @@ else
 	exit
 fi
 
+# Install the system license
+echo  
+echo "Installing the license file..."
+echo
+
+wget --no-check-certificate $PYREFORM_REPOSITORY/LICENSE.txt
+cp LICENSE.txt $PYREFORM_HOME
+
+# Start installing PyReform itself
 echo "Installing the core PyReform modules..."
 echo 
 
