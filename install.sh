@@ -186,8 +186,10 @@ then
 	cd tests
 	cp -r * $PYREFORM_HOME/tests
 	cp bin/*.sh $PYREFORM_HOME/bin	
+	cp bin/*.py $PYREFORM_HOME/bin
 	cd ..
 	chmod a+rx $PYREFORM_HOME/bin/*.sh
+	chmod a+rx $PYREFORM_HOME/bin/*.py
 fi
 
 echo "Done!"

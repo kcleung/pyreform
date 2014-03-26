@@ -7,6 +7,7 @@
 #
 # Author: Dr. Patricia Riddle @ 2013
 # Contact: pat@cs.auckland.ac.nz
+# Version: 2.0
 #
 # Translates PDDL files using an automated planner in order to improve performance
 #
@@ -64,8 +65,10 @@ mkdir $PYREFORM_HOME/tests
 cd tests
 cp -r * $PYREFORM_HOME/tests
 cp bin/*.sh $PYREFORM_HOME/bin	
+cp bin/*.py $PYREFORM_HOME/bin
 cd ..
 chmod a+rx $PYREFORM_HOME/bin/*.sh
+chmod a+rx $PYREFORM_HOME/bin/*.py
 
 echo "Done!"
 
