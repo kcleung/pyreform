@@ -12,8 +12,8 @@
 # Translates PDDL files using an automated planner in order to improve performance
 #
 # Program: to run a single regression test over the PDDL Translator program
-#	      takes as input the name of the test to run
-#	      produces a PASS or FAIL based on similarity with a provided output file
+#	      takes as input a domain, the name of the test to run and a direction (one of forward or backward)
+#	      produces a validation report
 #
 #	      set PROGNAME to the correct name of the translator program
 #
