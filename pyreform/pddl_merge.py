@@ -54,7 +54,7 @@ sys.setrecursionlimit(10000000)
 
 
 
-def run(domain_file, problem_file, local_config=None):
+def run(domain_file, problem_file, direction, local_config=None):
     '''
     This is the entry point for the PDDL Reform application
     It expects two input files in PDDL format and generates a set of files in response including:
@@ -94,10 +94,12 @@ def run(domain_file, problem_file, local_config=None):
     ontology, typing, objects, typeof_l, SOKOBAN = core.process_typing(requirements, types, objects1)
     G.typeof = typeof_l
     _PRINT("typeof!", G.typeof)
+    print "ontology", ontology
 
     # Check whether we can reformulate this input
-    REFORMULATE, myset, FOUND = core.test_reformulate(objects, actions, goals, prob2)
+    REFORMULATE, myset, FOUND, direction = core.test_reformulate(direction,objects, actions, goals, prob2, init, ontology,objects1)
 
+    print "test3"
     # If we can't reformulate then simply output what was input and exit
     if myset == []:
         #_PRINT("reformulate",REFORMULATE,"myset",myset) #"mylist",mylist
@@ -105,10 +107,10 @@ def run(domain_file, problem_file, local_config=None):
         sys.exit()
     
     _DEBUG("reformulate", REFORMULATE)
-
+    print "test2"
     # Otherwise if we can reformulate the input do so
     if REFORMULATE:                                                                             
-        lists = core.reformulate(myset, domain2, requirements, predicates, types, actions, domain_list1_real, domain_list1_temp, prob2, objects1, goals, init, prob_list2_real, prob_list2_temp, ontology, typing, objects, SOKOBAN)
+        lists, new_actions = core.reformulate(myset, domain2, requirements, predicates, types, actions, domain_list1_real, domain_list1_temp, prob2, objects1, goals, init, prob_list2_real, prob_list2_temp, ontology, typing, objects, SOKOBAN, direction,objects1)
         
     #fix double list first - change gripper to make 2 lists
     #! run lmcut
@@ -124,7 +126,11 @@ def run(domain_file, problem_file, local_config=None):
     #_PRINT("plan",plan)
 
     # Post process the resulting sas_plan file
-    solution = core.postprocess_plan(plan, lists, init, old_actions)
+    print "all_lists",G.all_lists
+    if G.all_lists <> []:
+        solution = core.postprocess_plan(plan, G.all_lists, init, old_actions, goals, direction, new_actions)
+    else:
+        solution = core.postprocess_plan(plan, lists, init, old_actions, goals, direction, new_actions)
 
     _DEBUG("solutionwww",solution)
     #_PRINT("solution", solution)
@@ -144,6 +150,6 @@ def run(domain_file, problem_file, local_config=None):
 
 if __name__ == '__main__':
 
-    result = run(sys.argv[1], sys.argv[2])
+    result = run(sys.argv[1], sys.argv[2], sys.argv[3])
     
 

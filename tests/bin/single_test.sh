@@ -41,18 +41,34 @@ ulimit -v 1500000
 PYREFORM_HOME=`echo $0 | awk -F "/bin/" '{ print $1 }'`
 export PYREFORM_HOME
 
-export PROGNAME="pddl_main"
-
-python $PYREFORM_HOME/bin/$PROGNAME.py $PYREFORM_HOME/tests/$1/$2/input/domain.pddl $PYREFORM_HOME/tests/$1/$2/input/$2 > prog.out 2> prog.err
-
-DIFF_SIZE=`diff sas_plan_new $PYREFORM_HOME/tests/$1/$2/output/sas_plan_new | wc -c`
-if [[ $DIFF_SIZE == '0' ]] 
+if [[ "$PLANNER_HOME" == "" ]]
 then
-	echo $1":    "$2 ": PASS"
-else
-	echo $1":    "$2 ": FAIL:"
-	diff sas_plan_new $PYREFORM_HOME/tests/$1/$2/output/sas_plan_new
-	echo
+	PLANNER_HOME="/opt/planner"
+	export PLANNER_HOME
 fi
 
+export PROGNAME="pddl_main"
 
+TEMP_DIR="pyreform_tmp"
+export TEMP_DIR
+
+if [[ -d $TEMP_DIR ]]
+then
+	echo "$TEMP_DIR already exists! Please delete this directory and run this script again."
+	exit 1
+fi
+
+mkdir $TEMP_DIR
+cd $TEMP_DIR
+
+python $PYREFORM_HOME/bin/$PROGNAME.py $PYREFORM_HOME/tests/$1/$2/input/domain.pddl $PYREFORM_HOME/tests/$1/$2/input/$2 "$3"> /dev/null 2> prog.err
+
+#DIFF_SIZE=`diff sas_plan_new $PYREFORM_HOME/tests/$1/$2/output/sas_plan_new | wc -c`
+
+echo
+echo "Validating "$1":    "$2
+$PLANNER_HOME/src/validate $PYREFORM_HOME/tests/$1/$2/input/domain.pddl $PYREFORM_HOME/tests/$1/$2/input/$2 sas_plan_new | $PYREFORM_HOME/bin/strip.py
+
+rm -r *
+cd ..
+rmdir $TEMP_DIR

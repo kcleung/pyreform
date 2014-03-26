@@ -7,6 +7,7 @@
 #
 # Author: Dr. Patricia Riddle @ 2013
 # Contact: pat@cs.auckland.ac.nz
+# Version: 2.0
 #
 # Translates PDDL files using an automated planner in order to improve performance
 #
@@ -60,27 +61,29 @@ count=0
     mkdir $downwardtmp
     echo $downwardtmp
     filename5="downward-test-new-final-1-"$name"infinite-lmcut"
-    output="output"$name
-    outputsas="output.sas"$name
+#    output="output"$name
+#    outputsas="output.sas"$name
 echo "filename" $filename5 > helpme2
-    cat $PYREFORM_HOME/bin/script10-final-optimal > $filename5
+    cat $PYREFORM_HOME/bin/planner.sh > $filename5
     date >> $filename5
     cd $downwardtmp
 echo $filename5
     nice -n19 python27 $PLANNER_HOME/src/translate/translate.py ../newdomain.pddl ../newprob.pddl >> $filename5
-cat output.sas > $outputsas
-    nice -n19 $PLANNER_HOME/src/preprocess/preprocess < $outputsas >> $filename5
+#cat output.sas > $outputsas
+    nice -n19 $PLANNER_HOME/src/preprocess/preprocess < output.sas >> $filename5
 timename="time"$name
     touch $timename
-cat output > $output
-    echo "outputsas" >> $filename5
-    cat $outputsas >> $filename5
-    echo "output" >> $filename5
-    cat $output >> $filename5
+#cat output > $output
+#    echo "outputsas" >> $filename5
+#    cat $outputsas >> $filename5
+#    echo "output" >> $filename5
+#    cat $output >> $filename5
     rm $timename
  echo "lmcut" >> $filename5
  (time $PLANNER_HOME/src/search/\
-downward-4 --search "astar(lmcut())" < $output >> $filename5) 1> /dev/null 2> time
+downward-1 --search "astar(ipdb())" < output >> $filename5) 1> /dev/null 2>> time
+#downward-4 --search "astar(blind())" < output >> $filename5) 1> /dev/null 2> time
+#downward-4 --search "astar(lmcut())" < output >> $filename5) 1> /dev/null 2> time
     cat time >> $filename5
     #cp sas_plan ..
 #    rm time

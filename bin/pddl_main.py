@@ -3,6 +3,7 @@ PDDL Merge and Translator - Entry point script
 
 Author: Dr. Patricia Riddle @ 2013
 Contact: pat@cs.auckland.ac.nz
+Version: 2.0
 
 Translates PDDL files using an automated planner in order to improve performance
 
@@ -31,5 +32,5 @@ import sys
 import pyreform.pddl_merge as main
 import config
 
-result = main.run(sys.argv[1], sys.argv[2], local_config=config)
+result = main.run(sys.argv[1], sys.argv[2], sys.argv[3], local_config=config) # pats comment to prove she can commit
 

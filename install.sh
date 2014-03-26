@@ -7,6 +7,7 @@
 #
 # Author: Dr. Patricia Riddle @ 2013
 # Contact: pat@cs.auckland.ac.nz
+# Version: 2.0
 #
 # Translates PDDL files using an automated planner in order to improve performance
 #
