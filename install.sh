@@ -35,9 +35,6 @@
 PYREFORM_REPOSITORY="https://pyreform.googlecode.com/svn/trunk"
 export PYREFORM_REPOSITORY
 
-PYREFORM_HOME="/opt/pddl"
-PLANNER_HOME="/opt/planner"
-
 ANS="N"
 read -p "This script will install the PyReform system. Do you wish to continue? [y/N] " ANS
 if [ "$ANS" != "y" ]
@@ -45,6 +42,34 @@ then
 	exit
 fi
 
+INSTALL_TYPE=$1
+if [ "$INSTALL_TYPE" == "" ]
+then
+	#read -p "What type of install is this [local/server] " INSTALL_TYPE
+	INSTALL_TYPE="local"
+fi
+
+if [ "$INSTALL_TYPE" == "local" ]
+then
+	if [ -d "opt" ]
+	then
+		echo "opt subdirectory already exists. Please delete this directory and start again!"
+		exit
+	fi
+	
+	mkdir "opt"
+	
+	BASE_DIR=`pwd`
+	PYREFORM_HOME=$BASE_DIR"/opt/pddl"
+	PLANNER_HOME=$BASE_DIR"/opt/planner"
+	
+elif [ "$INSTALL_TYPE" == "server" ]
+then
+	PYREFORM_HOME="/opt/pddl"
+	PLANNER_HOME="/opt/planner"
+fi
+
+echo
 echo "Gathering key directory paths..."
 echo
 
@@ -106,7 +131,11 @@ echo
 
 # Determine how to install the core PyReform modules
 ANS="local"
-read -p "install locally or as Python modules? [local/python] " ANS
+
+if [ "$INSTALL_TYPE" == "server" ]
+then
+	read -p "install locally or as Python modules? [local/python] " ANS
+fi
 
 BASE_INSTALL_TYPE=$ANS
 export BASE_INSTALL_TYPE
